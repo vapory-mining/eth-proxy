@@ -226,7 +226,7 @@ class Protocol(LineOnlyReceiver):
         if not msg_id:
             # It's a RPC newWork notification
             try:
-                result = self.event_handler._handle_event("eth_getWork", msg_result, connection_ref=self)
+                result = self.event_handler._handle_event("vap_getWork", msg_result, connection_ref=self)
             except:
                 failure = Failure()
                 self.process_failure(failure, msg_id, request_counter)
@@ -241,7 +241,7 @@ class Protocol(LineOnlyReceiver):
            
             try:
                 meta = self.lookup_table[msg_id]
-                if meta['method'] == "eth_submitWork":
+                if meta['method'] == "vap_submitWork":
                     response_time = (time.time() - meta['start_time']) * 1000
                     if msg_result == True:
                         log.info("[%dms] %s from '%s' accepted" % (response_time, meta['method'], meta['worker_name']))
@@ -256,7 +256,7 @@ class Protocol(LineOnlyReceiver):
             meta['defer'].callback(msg_result)
             if not isinstance(msg_result, bool):
                 try:
-                    result = self.event_handler._handle_event("eth_getWork", msg_result, connection_ref=self)
+                    result = self.event_handler._handle_event("vap_getWork", msg_result, connection_ref=self)
                     if result == None:
                         # event handler must return Deferred object or raise an exception for RPC request
                         raise custom_exceptions.MethodNotFoundException("Event handler cannot process '%s'" % msg_result)

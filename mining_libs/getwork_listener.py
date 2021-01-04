@@ -38,7 +38,7 @@ class Root(Resource):
 
         if not data.has_key('method'):
             response = self.json_error(data.get('id'), "Need methods")+'\n'
-        elif data['method'] == 'eth_getWork':
+        elif data['method'] == 'vap_getWork':
             if self.getWorkCacheTimeout["work"]==self.job_registry.jobs.params[0] and int(time.time())-self.getWorkCacheTimeout["time"]>=self.job_registry.coinTimeout:
                 log.warning('Job timeout. Proxy is waiting for an updated job. Please restart proxy!')
                 response = self.json_error(data.get('id', 0), "Job timeout. Proxy is waiting for an updated job...")
@@ -46,7 +46,7 @@ class Root(Resource):
                 if self.getWorkCacheTimeout["work"]!=self.job_registry.jobs.params[0]:
                     self.getWorkCacheTimeout = {"work":self.job_registry.jobs.params[0],"time":int(time.time())}
                 response = self.json_response(data.get('id', 0), self.job_registry.jobs.params)
-        elif data['method'] == 'eth_submitWork' or data['method'] == 'eth_submitHashrate':
+        elif data['method'] == 'vap_submitWork' or data['method'] == 'vap_submitHashrate':
             if self.isWorkerID:
                 worker_name = request.uri[1:15].split("/")[0]
                 if not worker_name:
@@ -55,12 +55,12 @@ class Root(Resource):
             else:
                 worker_name = ''
 
-            if data['method'] == 'eth_submitHashrate':
+            if data['method'] == 'vap_submitHashrate':
                 if worker_name and (not self.submitHashrates.has_key(worker_name) or int(time.time())-self.submitHashrates[worker_name]>=60):
                     self.submitHashrates[worker_name] = int(time.time())
                     log.info('Hashrate for %s is %s MHs' % (worker_name,int(data['params'][0],16)/1000000.0 ) )
                     threads.deferToThread(self.job_registry.submit, data['method'], data['params'], worker_name)
-            elif data['method'] == 'eth_submitWork':
+            elif data['method'] == 'vap_submitWork':
                 threads.deferToThread(self.job_registry.submit, data['method'], data['params'], worker_name)
             response = self.json_response(data.get('id', 0), True)
         else:
@@ -74,7 +74,7 @@ class Root(Resource):
             return
 
     def render_GET(self, request):
-        ret_text = "Ethereum stratum proxy<br>"
+        ret_text = "Vapory stratum proxy<br>"
         if self.job_registry and self.job_registry.jobs and self.job_registry.jobs.params:
             ret_text += "DAG-file: %s<br><br>" % str(self.job_registry.jobs.params[1][2:18])
         if self.job_registry.f:

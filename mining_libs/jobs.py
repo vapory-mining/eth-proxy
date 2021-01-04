@@ -23,7 +23,7 @@ class JobRegistry(object):
         self.f3 = f3
         self.jobs = None
         # stop mining after 6 minutes if internet disconnected
-        if settings.COIN=="ETH":
+        if settings.COIN=="VAP":
             self.coinTimeout = 360
         else:
             self.coinTimeout = 900 # For expanse 15 minutes waiting for new job
@@ -81,8 +81,8 @@ class JobRegistry(object):
         log_text = ""
         if settings.DEBUG:
             log_text = "%s by %s %s" % (method, worker_name, params)
-        elif method=="eth_submitWork":
-            log_text = "eth_submitWork %s by %s" % (params[0], worker_name)
+        elif method=="vap_submitWork":
+            log_text = "vap_submitWork %s by %s" % (params[0], worker_name)
         if self.f.is_connected:
             if log_text:
                 log.info( "MAIN %s" % log_text )

@@ -126,8 +126,8 @@ PEERS = [
 ]
 ###
 # Command line for miners:
-#   ethminer.exe -G -F http://YOUR_PROXY_IP:8080/
-#   ethminer.exe -G -F http://YOUR_PROXY_IP:8080/rig1
+#   vapminer.exe -G -F http://YOUR_PROXY_IP:8080/
+#   vapminer.exe -G -F http://YOUR_PROXY_IP:8080/rig1
 #
 #  You can submit shares without workername or
 #  You can provide workername:
@@ -153,14 +153,14 @@ MONITORING = False
 MONITORING_EMAIL = 'mail@example.com'
 
 # Main pool
-POOL_HOST = 'eth-eu.dwarfpool.com'
+POOL_HOST = 'vap-eu.dwarfpool.com'
 POOL_PORT = 8008
 
 # Failover pool.
 POOL_FAILOVER_ENABLE = False
-POOL_HOST_FAILOVER1 = 'eth-ru.dwarfpool.com'
+POOL_HOST_FAILOVER1 = 'vap-ru.dwarfpool.com'
 POOL_PORT_FAILOVER1 = 8008
-POOL_HOST_FAILOVER2 = 'eth-us.dwarfpool.com'
+POOL_HOST_FAILOVER2 = 'vap-us.dwarfpool.com'
 POOL_PORT_FAILOVER2 = 8008
-POOL_HOST_FAILOVER3 = 'eth-hk.dwarfpool.com'
+POOL_HOST_FAILOVER3 = 'vap-hk.dwarfpool.com'
 POOL_PORT_FAILOVER3 = 8008

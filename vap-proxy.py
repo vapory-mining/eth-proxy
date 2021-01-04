@@ -31,8 +31,8 @@ from mining_libs import version
 def on_shutdown(f):
     '''Clean environment properly'''
     log.info("Shutting down proxy...")
-    if os.path.isfile('eth-proxy.pid'):
-        os.remove('eth-proxy.pid')
+    if os.path.isfile('vap-proxy.pid'):
+        os.remove('vap-proxy.pid')
     f.is_reconnecting = False # Don't let stratum factory to reconnect again
 
 # Support main connection
@@ -41,7 +41,7 @@ def ping(f):
     if not f.is_reconnecting:
         return
     try:
-        yield (f.rpc('eth_getWork', [], ''))
+        yield (f.rpc('vap_getWork', [], ''))
         if f.is_failover:
             reactor.callLater(30, ping, f)
         else:
@@ -62,7 +62,7 @@ def on_connect(f):
 
     # Get first job and user_id
     debug = "_debug" if settings.DEBUG else ""
-    initial_job = (yield f.rpc('eth_submitLogin', [settings.WALLET, settings.CUSTOM_EMAIL], 'Proxy_'+version.VERSION+debug))
+    initial_job = (yield f.rpc('vap_submitLogin', [settings.WALLET, settings.CUSTOM_EMAIL], 'Proxy_'+version.VERSION+debug))
 
     reactor.callLater(0, ping, f)
 
@@ -78,7 +78,7 @@ def on_disconnect(f):
 def main():
     reactor.disconnectAll()
 
-    log.warning("Ethereum Stratum proxy version: %s" % version.VERSION)
+    log.warning("Vapory Stratum proxy version: %s" % version.VERSION)
 
     # Connect to Stratum pool, main monitoring connection
     log.warning("Trying to connect to Stratum pool at %s:%d" % (settings.POOL_HOST, settings.POOL_PORT))
@@ -166,7 +166,7 @@ def main():
     log.warning("-----------------------------------------------------------------------")
 
 if __name__ == '__main__':
-    fp = file("eth-proxy.pid", 'w')
+    fp = file("vap-proxy.pid", 'w')
     fp.write(str(os.getpid()))
     fp.close()
     main()

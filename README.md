@@ -1,6 +1,6 @@
 #Description
 
-This is Stratum Proxy for Ethereum based pools (RPCv2) using asynchronous networking written in Python Twisted.
+This is Stratum Proxy for Vapory based pools (RPCv2) using asynchronous networking written in Python Twisted.
 Originally developed for DwarfPool http://dwarfpool.com/eth
 
 **NOTE:** This fork is still in development. Some features may be broken. Please report any broken features or issues.
@@ -9,7 +9,7 @@ Originally developed for DwarfPool http://dwarfpool.com/eth
 #Features
 
 * Additional up to 20% increase of earning compared to standard pools
-* ETH stratum proxy
+* VAP stratum proxy
 * Automatically failover via proxy
 * Only one connection to the pool
 * Workers get new jobs immediately
@@ -39,12 +39,12 @@ Originally developed for DwarfPool http://dwarfpool.com/eth
 
 #Configuration
 
-* all configs in file  eth-proxy.conf
+* all configs in file  vap-proxy.conf
 
 
 #Command line to miner start, recommended farm-recheck to use with stratum-proxy is 200
 
-* ./ethminer --farm-recheck 200 -G -F http://127.0.0.1:8080/rig1
+* ./vapminer --farm-recheck 200 -G -F http://127.0.0.1:8080/rig1
 
 
 #External script to restart proxy (made by rain)
@@ -55,18 +55,18 @@ Originally developed for DwarfPool http://dwarfpool.com/eth
 # Proxy working check
 
 * To check that proxy works open in browser http://127.0.0.1:8080/ (or your changed ip and port from config)
-* If you see "Ethereum stratum proxy" and some infos about connections.
+* If you see "Vapory stratum proxy" and some infos about connections.
 * If not then mostly case that you have application running on this port, at example Antivirus.
 
 
 #Donations
 
-* ETH:  0xea7263feb7d8a8ab0a11eedd8f1ce04412ab0820
+* ETH/VAP:  0x5e7d4ab47b6f44d7ba5dc8777bd2fb6c9a1671b9
 
 
 #Requirements
 
-eth-proxy is built in python. I have been testing it with 2.7.3, but it should work with other versions. The requirements for running the software are below.
+vap-proxy is built in python. I have been testing it with 2.7.3, but it should work with other versions. The requirements for running the software are below.
 
 * Python 2.7+
 * python-twisted
@@ -82,12 +82,12 @@ eth-proxy is built in python. I have been testing it with 2.7.3, but it should w
 
 2) start proxy with
 ```
- python ./eth-proxy.py
+ python ./vap-proxy.py
 ```
 
 * [Windows]
 Download compiled version
-https://github.com/Atrides/eth-proxy/releases
+https://github.com/Atrides/vap-proxy/releases
 
 Or use python source code
 
@@ -112,7 +112,7 @@ File Twisted-15.4.0.win32-py2.7.msi (32bit) or Twisted-15.4.0.win-amd64-py2.7.ms
 pywin32-219.win32-py2.7.exe or pywin32-219.win-amd64-py2.7.exe
 http://sourceforge.net/projects/pywin32/files/pywin32/
 
-7) Download eth-proxy. Extract eth-proxy.zip. Change settings in config.py and start with command:
+7) Download vap-proxy. Extract vap-proxy.zip. Change settings in config.py and start with command:
 ```
   python xmr-proxy.py
 ```

@@ -44,7 +44,7 @@ class ClientMiningService(GenericEventHandler):
         # let's restart the timeout.
         self.reset_timeout()
         
-        if method == 'eth_getWork':
+        if method == 'vap_getWork':
             '''Proxy just received information about new mining job'''
             # Broadcast to getwork clients
             job = Job.build_from_pool(params)
